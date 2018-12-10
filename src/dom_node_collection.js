@@ -14,36 +14,28 @@ class DOMNodeCollection {
   }
 
   empty(){
-    for (var i = 0; i < this.nodes.length; i++) {
-      this.nodes[i].html = "";
-    }
+    this.html("");
   }
 
   append(arg){
-    if (this.nodes.length === 0) return;
-
-    if (typeof arg === 'object' && !(arg instanceof DOMNodeCollection)){
-      arg = $l(arg);
-    } else if (arg instanceof DOMNodeCollection){
+    if (arg.constructor.name === "DOMNodeCollection"){
       for (var i = 0; i < this.nodes.length; i++) {
         for (var j = 0; j < arg.nodes.length; j++) {
-          this.nodes[i].append(arg.nodes[j].cloneNode(true));
+          this.nodes[i].innerHTML += input.nodes[j].outerHTML;
         }
       }
-    }
-
-    if (typeof arg === 'string'){
-      for (var i = 0; i < this.nodes.length; i++) {
-        this.nodes[i].innerHTML += arg;
-      }
+    } else if (arg instanceof HTMLElement){
+      this.nodes.forEach(node => node.innerHTML += input.outerHTML);
+    }else if (typeof arg === 'string'){
+      this.nodes.forEach(node => node.innerHTML += arg);
     }
   }
 
-  attr(key,val){
-    if (typeof val === "string"){
-      for (var i = 0; i < this.nodes.length; i++) {
-        this.nodes[i].setAttribute(key,val);
-      }
+  attr (attribute, value) {
+    if (value) {
+      this.nodes.forEach(node => node.setAttribute(attribute, value));
+    } else {
+      return this.nodes[0].getAttribute(attribute);
     }
   }
 
@@ -87,14 +79,29 @@ class DOMNodeCollection {
     let nodeList = [];
     for (var i = 0; i < this.nodes.length; i++) {
       const selected = this.nodes[i].querySelectorAll(selector);
-      nodeList = nodeList.concat(Array.from(selected));
+      nodeList = nodeList.push(selected);
     }
     return new DOMNodeCollection(nodeList);
   }
 
   remove(){
+    this.nodes.forEach(node => node.outerHTML = "");
+    this.nodes = [];
+  }
+
+  on(eventType, callback){
     for (var i = 0; i < this.nodes.length; i++) {
-      this.nodes[i].parentNode.removeChild(this.nodes[i]);
+      const node = this.nodes[i];
+      node.addEventListener(eventType, callback);
+      node.listener = callback;
+    }
+  }
+
+  off(eventType){
+    for (var i = 0; i < this.nodes.length; i++) {
+      const node = this.nodes[i];
+      node.removeEventListener(eventType, node.listener);
+      node.listener = null;
     }
   }
 }
