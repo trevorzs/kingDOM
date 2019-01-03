@@ -62,18 +62,39 @@ document.addEventListener("DOMContentLoaded", function(){
   docReady = true;
   docCallbacks.forEach(func => func());
   getValues("USD",$l("input").value());
+  setup();
+})
+
+const setup = ()=>{
+  getValues("USD",$l("input").value());
   $l("input").on("change", ()=>{
     getValues("USD",$l("input").value());
+  });
+  $l("span").nodes.forEach(span => {
+    $l(span).on("click", (e) => {
+      toggleAll();
+      $l(span).addClass("selected");
+      getValues($l(span).html(),$l("input").value());
+    })
   })
-})
+}
+
+const toggleAll = () => {
+  $l("span").nodes.forEach(span => {
+    $l(span).removeClass("selected");
+  })
+}
 
 const getValues = (currency, value) => {
   $l.ajax({method: "GET",
     url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-      const value = $l("input").value();
-      $l("#PHP").html("PHP $ "+response.rates.PHP*value.toString());
-      $l("#HKD").html("HKD $ "+response.rates.HKD*value.toString());
-      $l("#USD").html("USD $ "+response.rates.USD*value.toString());
-      $l("#JPY").html("JPY ¥ "+response.rates.JPY*value.toString());
+      $l("#AUD").html("AUD $ "+calculatePrice(response.rates.AUD,value));
+      $l("#HKD").html("HKD $ "+calculatePrice(response.rates.HKD,value));
+      $l("#USD").html("USD $ "+calculatePrice(response.rates.USD,value));
+      $l("#JPY").html("JPY ¥ "+calculatePrice(response.rates.JPY,value));
     })
+}
+
+const calculatePrice =(price,value) => {
+  return (price*value).toFixed(2).toString();
 }

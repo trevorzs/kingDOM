@@ -55,7 +55,7 @@ class DOMNodeCollection {
 
   removeClass(arg){
     for (var i = 0; i < this.nodes.length; i++) {
-      this.nodes[i].classlist.remove(arg);
+      this.nodes[i].classList.remove(arg);
     }
   }
 
