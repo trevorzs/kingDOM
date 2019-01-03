@@ -65,21 +65,51 @@ document.addEventListener("DOMContentLoaded", function(){
   setup();
 })
 
+
+const CURRENCIES = {
+  "AUD": "$",
+  "HKD": "$",
+  "USD": "$",
+  "JPY": "¥",
+  "GBP": "£",
+  "EUR": "€",
+}
+
 const setup = ()=>{
+  for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
+    const key = Object.keys(CURRENCIES)[i];
+    const symbol= CURRENCIES[key];
+    let htmlElement = document.createElement("h2");
+    $l(htmlElement).attr("id",key);
+    $l(".main").append(htmlElement);
+  }
   getValues("USD",$l("input").value());
+
   $l("input").on("change", ()=>{
     getValues("USD",$l("input").value());
   });
   $l("span").nodes.forEach(span => {
-    $l(span).on("click", (e) => {
-      toggleAll();
-      $l(span).addClass("selected");
-      getValues($l(span).html(),$l("input").value());
+    // wraps current span in DOMNodeCollection
+    let spanNode = $l(span);
+
+    //adds onClick listeners for each span Node
+    spanNode.on("click", (e) => {
+      removeClassFromSpans();
+      spanNode.addClass("selected");
+
+      //changes symbol next to input field
+      const currency = spanNode.html();
+      const symbol = CURRENCIES[currency]
+      $l("#symbol").html(` ${symbol}`);
+
+      //pulls api data based on currencies list
+      const value = $l("input").value();
+      getValues(currency,value);
     })
   })
 }
 
-const toggleAll = () => {
+const removeClassFromSpans = () => {
   $l("span").nodes.forEach(span => {
     $l(span).removeClass("selected");
   })
@@ -88,13 +118,16 @@ const toggleAll = () => {
 const getValues = (currency, value) => {
   $l.ajax({method: "GET",
     url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-      $l("#AUD").html("AUD $ "+calculatePrice(response.rates.AUD,value));
-      $l("#HKD").html("HKD $ "+calculatePrice(response.rates.HKD,value));
-      $l("#USD").html("USD $ "+calculatePrice(response.rates.USD,value));
-      $l("#JPY").html("JPY ¥ "+calculatePrice(response.rates.JPY,value));
+      for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
+        const key = Object.keys(CURRENCIES)[i];
+        const symbol= CURRENCIES[key];
+        const price = response.rates[key];
+        $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
+      }
     })
 }
 
+//helper function to round converted price
 const calculatePrice =(price,value) => {
   return (price*value).toFixed(2).toString();
 }

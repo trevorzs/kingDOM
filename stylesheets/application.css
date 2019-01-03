@@ -32,3 +32,10 @@ input{
   outline:none;
   color:white;
 }
+.inline{
+  display:flex;
+}
+#symbol{
+  position:relative;
+  left:-35px;
+}

@@ -4,28 +4,24 @@
     <meta charset="utf-8">
     <title>KingDOM</title>
     <script type="text/javascript" src="./dist/main.js" charset="utf-8"></script>
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="main">
       <h1>KingDOM Currency Converter</h1>
-      <div class="">
-        <span class="USD selected">USD</span>
-        <span class="HKD">HKD</span>
-        <span class="JPY">JPY</span>
-        <span class="AUD">AUD</span>
-      </div>
-      <br/>
       <div>
-        <input type="number" name="" value="1"> $</input>
+        <span class="USD selected">USD</span>
+        <span class="GBP">GBP</span>
+        <span class="JPY">JPY</span>
+        <span class="HKD">HKD</span>
       </div>
       <br/>
-      <h2 id="USD"></h2>
-      <h2 id="HKD"></h2>
-      <h2 id="JPY"></h2>
-      <h2 id="AUD"></h2>
+      <div class="inline">
+        <input type="number" name="" value="1" min="0"/><p id="symbol">$</p>
+      </div>
+      <br/>
     </div>
   </body>
 </html>

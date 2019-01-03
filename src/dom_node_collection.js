@@ -29,11 +29,11 @@ class DOMNodeCollection {
     if (arg.constructor.name === "DOMNodeCollection"){
       for (var i = 0; i < this.nodes.length; i++) {
         for (var j = 0; j < arg.nodes.length; j++) {
-          this.nodes[i].innerHTML += input.nodes[j].outerHTML;
+          this.nodes[i].innerHTML += arg.nodes[j].outerHTML;
         }
       }
     } else if (arg instanceof HTMLElement){
-      this.nodes.forEach(node => node.innerHTML += input.outerHTML);
+      this.nodes.forEach(node => node.innerHTML += arg.outerHTML);
     }else if (typeof arg === 'string'){
       this.nodes.forEach(node => node.innerHTML += arg);
     }
