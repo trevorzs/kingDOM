@@ -73,6 +73,18 @@ const CURRENCIES = {
   "JPY": "¥",
   "GBP": "£",
   "EUR": "€",
+  "PHP": "₱",
+  "INR": "₹",
+  "ILS": "₪",
+  "RUB": "₽",
+  "DKK": "kr",
+  "HUF": "Ft",
+  "PLN": "zł",
+  "THB": "฿",
+  "TRY": "₺",
+  "ZAR": "R"
+
+
 }
 
 const setup = ()=>{
@@ -80,7 +92,7 @@ const setup = ()=>{
     const key = Object.keys(CURRENCIES)[i];
     let htmlElement = document.createElement("h2");
     $l(htmlElement).attr("id",key);
-    $l(".main").append(htmlElement);
+    $l(".prices").append(htmlElement);
   }
   getValues("USD",$l("input").value());
 

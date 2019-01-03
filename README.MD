@@ -1,7 +1,7 @@
 # README
 ## KingDOM
 Live Site: [http://trevorzsmith.com/kingDOM/](http://trevorzsmith.com/kingDOM/)
-![screenshot](images/screenshot.png)
+![screenshot](images/screenshot2.png)
 
 ## About
 This project is a lightweight custom jQuery build using vanilla JavaScript.
