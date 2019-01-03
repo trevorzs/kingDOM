@@ -88,3 +88,40 @@ Returns children or parents of the collection as a `DOMNodeCollection`
 
 `empty`
 Removes innerHTML of all elements in `DOMNodeCollection`
+
+#### Adds Currencies Dynamically
+Defines a constant for quick and dynamic fetching/addition of currencies displayed
+``` javascript
+const CURRENCIES = {
+  "AUD": "$",
+  "HKD": "$",
+  "USD": "$",
+  "JPY": "¥",
+  "GBP": "£",
+  "EUR": "€",
+}
+```
+
+Loops over currencies and adds them as h2 elements to the main div. Adding currencies to the CURRENCIES object will automatically display new currencies and their conversions.
+
+``` javascript
+for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
+  const key = Object.keys(CURRENCIES)[i];
+  let htmlElement = document.createElement("h2");
+  $l(htmlElement).attr("id",key);
+  $l(".main").append(htmlElement);
+}
+```
+
+Same for loop with a different application, dynamically displaying results from AJAX request
+``` javascript
+$l.ajax({method: "GET",
+  url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
+    for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
+      const key = Object.keys(CURRENCIES)[i];
+      const symbol= CURRENCIES[key];
+      const price = response.rates[key];
+      $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
+    }
+  })
+```

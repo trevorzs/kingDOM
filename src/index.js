@@ -78,7 +78,6 @@ const CURRENCIES = {
 const setup = ()=>{
   for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
     const key = Object.keys(CURRENCIES)[i];
-    const symbol= CURRENCIES[key];
     let htmlElement = document.createElement("h2");
     $l(htmlElement).attr("id",key);
     $l(".main").append(htmlElement);
