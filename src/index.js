@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 window.$l.ajax = (options) => {
-  const defauls = {
+  let params = {
     method: "GET",
     url: "",
     data: {},
@@ -44,4 +44,24 @@ window.$l.ajax = (options) => {
     success: () => {},
     error: () => {},
   };
+
+  if (options){
+    params = Object.assign(params,options);
+  }
+
+  return new Promise((resolve,reject) => {
+    const req = new XMLHttpRequest();
+    req.open(params.method,params.url);
+    req.onload = () => {
+      if (req.status === 200){
+        resolve(JSON.parse(req.response));
+      }else{
+        reject(Error(JSON.parse(req.statusText));
+      }
+    }
+    req.onerror = () => {
+      reject(Error("Network Error"));
+    }
+    req.send(JSON.stringify(params.data));
+  })
 }
