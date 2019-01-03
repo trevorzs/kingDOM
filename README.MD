@@ -1,5 +1,6 @@
 # README
 ## KingDOM
+Live Site: [http://trevorzsmith.com/kingDOM/](http://trevorzsmith.com/kingDOM/)
 ![screenshot](images/screenshot.png)
 
 ## About
