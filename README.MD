@@ -32,7 +32,8 @@ $l = (argument) => {
       }
   }
 }
-}```
+}
+```
 
 `$l.ajax`
 Allows sending of AJAX requests in order to interact with foreign APIs. Returns a promise using a `XMLHttpRequest`, allowing the AJAX request to be chainable.
@@ -65,7 +66,8 @@ $l.ajax = (options) => {
     }
     req.send(JSON.stringify(params.data));
   })
-}```
+}
+```
 
 #### `DOMNodeCollection` functions:
 
