@@ -4,18 +4,26 @@
     <meta charset="utf-8">
     <title></title>
     <script type="text/javascript" src="./main.js" charset="utf-8"></script>
+    <style media="screen">
+      .selected{
+        color:red;
+      }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="main">
-      <div id="content">
-        <p id="paragraph1">These are words</p>
-      </div>
-      <p id="paragraph2">Animals!</p>
-      <ul>
-        <li id="list1">Cat</li>
-        <li id="list2">Dog</li>
-      </ul>
+      <h1>Currency Converter</h1>
+      <span class="USD selected">USD</span>
+      <span class="RMB">RMB</span>
+      <span class="JPY">JPY</span>
+      <br/>
+      <input type="number" name="" value="1">$</input>
+      <br/>
+      <h2 id="USD"></h2>
+      <h2 id="HKD"></h2>
+      <h2 id="JPY"></h2>
+      <h2 id="PHP"></h2>
     </div>
   </body>
 </html>

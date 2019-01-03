@@ -2,7 +2,7 @@ const DOMNodeCollection = require("./dom_node_collection");
 let docReady = false;
 const docCallbacks = [];
 
-window.$l = (argument) => {
+$l = (argument) => {
   switch (typeof argument) {
     case "string":
       const nodeList = document.querySelectorAll(argument);
@@ -21,7 +21,7 @@ window.$l = (argument) => {
   }
 }
 
-window.$l.extend = (...args) => {
+$l.extend = (...args) => {
   let base = args[0];
   for (var i = 1; i < args.length; i++) {
     Object.assign(base,args[i]);
@@ -29,12 +29,7 @@ window.$l.extend = (...args) => {
   return base;
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  docReady = true;
-  docCallbacks.forEach(func => func());
-})
-
-window.$l.ajax = (options) => {
+$l.ajax = (options) => {
   let params = {
     method: "GET",
     url: "",
@@ -46,7 +41,7 @@ window.$l.ajax = (options) => {
   };
 
   if (options){
-    params = Object.assign(params,options);
+    params = $l.extend(params,options);
   }
 
   return new Promise((resolve,reject) => {
@@ -56,12 +51,29 @@ window.$l.ajax = (options) => {
       if (req.status === 200){
         resolve(JSON.parse(req.response));
       }else{
-        reject(Error(JSON.parse(req.statusText));
+        reject(Error(req.statusText));
       }
-    }
-    req.onerror = () => {
-      reject(Error("Network Error"));
     }
     req.send(JSON.stringify(params.data));
   })
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  docReady = true;
+  docCallbacks.forEach(func => func());
+  getValues("USD",$l("input").value());
+  $l("input").on("change", ()=>{
+    getValues("USD",$l("input").value());
+  })
+})
+
+const getValues = (currency, value) => {
+  $l.ajax({method: "GET",
+    url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
+      const value = $l("input").value();
+      $l("#PHP").html("PHP $ "+response.rates.PHP*value.toString());
+      $l("#HKD").html("HKD $ "+response.rates.HKD*value.toString());
+      $l("#USD").html("USD $ "+response.rates.USD*value.toString());
+      $l("#JPY").html("JPY ¥ "+response.rates.JPY*value.toString());
+    })
 }

@@ -6,10 +6,18 @@ class DOMNodeCollection {
   html(arg){
     if (typeof arg === "string"){
       for (var i = 0; i < this.nodes.length; i++) {
-        this.nodes[i].inerHTML = arg;
+        this.nodes[i].innerHTML = arg;
       }
     }else if (this.nodes[0]){
         return this.nodes[0].innerHTML;
+    }
+  }
+
+  value(){
+    if (this.nodes[0]){
+        return this.nodes[0].value;
+    }else{
+      return null;
     }
   }
 
