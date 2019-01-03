@@ -21,3 +21,14 @@ span{
   font-size:30px;
   padding:10px;
 }
+span:hover{
+  cursor:pointer;
+}
+input{
+  padding:10px;
+  font-size:15px;
+  background-color:#0d263f;
+  border:none;
+  outline:none;
+  color:white;
+}
