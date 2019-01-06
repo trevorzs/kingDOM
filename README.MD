@@ -102,7 +102,7 @@ const CURRENCIES = {
 }
 ```
 
-Loops over currencies and adds them as h2 elements to the main div. Adding currencies to the CURRENCIES object will automatically display new currencies and their conversions.
+Loops over currencies and adds them as h2 elements to the main div. Adding currencies to the CURRENCIES object will automatically display new currencies.
 
 ``` javascript
 for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
@@ -113,15 +113,33 @@ for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
 }
 ```
 
-Same for loop with a different application, dynamically displaying results from AJAX request
+Uses custom `on` method to add event listener on key press.
+Key press changes to input will dynamically display results from AJAX request,
+live updating currencies and their conversions
+
 ``` javascript
-$l.ajax({method: "GET",
-  url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-    for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
-      const key = Object.keys(CURRENCIES)[i];
-      const symbol= CURRENCIES[key];
-      const price = response.rates[key];
-      $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
-    }
-  })
+on(eventType, callback){
+  for (var i = 0; i < this.nodes.length; i++) {
+    const node = this.nodes[i];
+    node.addEventListener(eventType, callback);
+    node.listener = callback;
+  }
+}
+
+$l("input").on("keyup", ()=>{
+  getValues("USD",$l("input").value());
+});
+
+const getValues = (currency, value) => {
+  $l.ajax({method: "GET",
+    url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
+      for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
+        const key = Object.keys(CURRENCIES)[i];
+        const symbol= CURRENCIES[key];
+        const price = response.rates[key];
+        $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
+      }
+    })
+}
+
 ```
