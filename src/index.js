@@ -96,7 +96,7 @@ const setup = ()=>{
   }
   getValues("USD",$l("input").value());
 
-  $l("input").on("change", ()=>{
+  $l("input").on("keyup", ()=>{
     getValues("USD",$l("input").value());
   });
   $l("span").nodes.forEach(span => {
