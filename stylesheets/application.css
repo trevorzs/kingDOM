@@ -27,7 +27,7 @@ span:hover{
 input{
   padding:25px;
   font-size:18px;
-  background-color:#0d263f;
+  background-color: rgb(13,38,63);
   border:none;
   outline:none;
   color:white;
@@ -39,12 +39,34 @@ input{
   position:relative;
   left:-35px;
 }
+
 .prices{
   margin-top:20px;
   display:flex;
   flex-direction:column;
   text-align:center;
   overflow:scroll;
-  background-color:rgba(0,0,128,0.3);
+  background-color:rgba(13,38,63,0.6);
   padding: 0 20px;
+  vertical-align:middle;
+}
+::-webkit-scrollbar{
+  width:0px;
+  background: transparent;
+}
+
+.bar{
+  position:absolute;
+  right:50px;
+}
+.icons{
+  font-size:36px;
+  display:flex;
+  justify-content: space-between;
+}
+.icons i{
+  color:#5799db;
+}
+.icons i:hover{
+  color: rgb(13,38,63);
 }
