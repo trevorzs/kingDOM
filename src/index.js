@@ -88,10 +88,9 @@ const CURRENCIES = {
 }
 
 const setup = ()=>{
-  for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
-    const key = Object.keys(CURRENCIES)[i];
+  for (currency in CURRENCIES) {
     let htmlElement = document.createElement("h2");
-    $l(htmlElement).attr("id",key);
+    $l(htmlElement).attr("id",currency);
     $l(".prices").append(htmlElement);
   }
   getValues("USD",$l("input").value());
@@ -109,13 +108,13 @@ const setup = ()=>{
       spanNode.addClass("selected");
 
       //changes symbol next to input field
-      const currency = spanNode.html();
-      const symbol = CURRENCIES[currency]
+      const key = spanNode.html();
+      const symbol = CURRENCIES[key]
       $l("#symbol").html(` ${symbol}`);
 
       //pulls api data based on currencies list
       const value = $l("input").value();
-      getValues(currency,value);
+      getValues(key,value);
     })
   })
 }
@@ -129,8 +128,7 @@ const removeClassFromSpans = () => {
 const getValues = (currency, value) => {
   $l.ajax({method: "GET",
     url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-      for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
-        const key = Object.keys(CURRENCIES)[i];
+      for (key in CURRENCIES) {
         const symbol= CURRENCIES[key];
         const price = response.rates[key];
         $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));

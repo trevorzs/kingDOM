@@ -105,11 +105,10 @@ const CURRENCIES = {
 Loops over currencies and adds them as h2 elements to the main div. Adding currencies to the CURRENCIES object will automatically display new currencies.
 
 ``` javascript
-for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
-  const key = Object.keys(CURRENCIES)[i];
+for (currency in CURRENCIES) {
   let htmlElement = document.createElement("h2");
-  $l(htmlElement).attr("id",key);
-  $l(".main").append(htmlElement);
+  $l(htmlElement).attr("id",currency);
+  $l(".prices").append(htmlElement);
 }
 ```
 
@@ -133,8 +132,7 @@ $l("input").on("keyup", ()=>{
 const getValues = (currency, value) => {
   $l.ajax({method: "GET",
     url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-      for (var i = 0; i < Object.keys(CURRENCIES).length; i++) {
-        const key = Object.keys(CURRENCIES)[i];
+      for (key in CURRENCIES) {
         const symbol= CURRENCIES[key];
         const price = response.rates[key];
         $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
