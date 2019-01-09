@@ -88,7 +88,7 @@ const CURRENCIES = {
 }
 
 const setup = ()=>{
-  for (currency in CURRENCIES) {
+  for (const currency in CURRENCIES) {
     let htmlElement = document.createElement("h2");
     $l(htmlElement).attr("id",currency);
     $l(".prices").append(htmlElement);
@@ -128,7 +128,7 @@ const removeClassFromSpans = () => {
 const getValues = (currency, value) => {
   $l.ajax({method: "GET",
     url: `https://api.exchangeratesapi.io/latest?base=${currency}`}).then((response)=>{
-      for (key in CURRENCIES) {
+      for (const key in CURRENCIES) {
         const symbol= CURRENCIES[key];
         const price = response.rates[key];
         $l(`#${key}`).html(`${key} ${symbol} `+ calculatePrice(price,value));
