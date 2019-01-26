@@ -70,3 +70,7 @@ input{
 .icons i:hover{
   color: rgb(13,38,63);
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
