@@ -103,8 +103,10 @@ const setup = ()=>{
     const description = $l("#aboutDescriptionBox");
     if (description.attr("hidden")){
       description.removeAttr("hidden");
+      $l("#about").addClass("selected");
     }else{
       description.attr("hidden","true");
+      $l("#about").removeClass("selected");
     }
   })
 

@@ -86,10 +86,11 @@ input::-webkit-inner-spin-button {
 
 #aboutDescription{
   display:flex;
+  flex-direction:column;
   justify-content:center;
   text-align:center;
   background-color:rgba(13,38,63,0.6);
 }
 #aboutDescription p{
-  padding:10px;
+  margin:20px;
 }
