@@ -85,7 +85,7 @@ input::-webkit-inner-spin-button {
 }
 
 #aboutDescription{
-  display:flex;
+  display:inline-flex;
   flex-direction:column;
   justify-content:center;
   text-align:center;
