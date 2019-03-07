@@ -1,5 +1,4 @@
 body{
-  display:flex;
   padding: 0px;
   margin: 0px;
   background-image: url("../images/background.jpeg");
@@ -75,6 +74,9 @@ input{
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+}
+.wrapper{
+  display:flex;
 }
 #about{
   display:flex;
