@@ -98,6 +98,16 @@ const setup = ()=>{
   $l("input").on("keyup", ()=>{
     getValues("USD",$l("input").value());
   });
+
+  $l("#about").on("click", ()=>{
+    const description = $l("#aboutDescriptionBox");
+    if (description.attr("hidden")){
+      description.removeAttr("hidden");
+    }else{
+      description.attr("hidden","true");
+    }
+  })
+
   $l("span").nodes.forEach(span => {
     // wraps current span in DOMNodeCollection
     let spanNode = $l(span);

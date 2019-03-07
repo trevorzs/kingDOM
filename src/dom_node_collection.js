@@ -47,6 +47,10 @@ class DOMNodeCollection {
     }
   }
 
+  removeAttr(attribute){
+    this.nodes.forEach(node => node.removeAttribute(attribute));
+  }
+
   addClass(arg){
     for (var i = 0; i < this.nodes.length; i++) {
       this.nodes[i].classList.add(arg);
